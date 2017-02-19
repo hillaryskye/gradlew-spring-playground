@@ -42,4 +42,31 @@ public class HelloControllerTest {
         RequestBuilder request = MockMvcRequestBuilders.get("/map-example");
         this.mvc.perform(get("/map-example?querystring=hi"));
     }
+
+    @Test
+    public void testIndexEndpoint() throws Exception {
+        int driverId = 4; // in real life you might pull this from a db.
+
+        this.mvc.perform(get(String.format("/drivers/%d/trips", driverId)))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testIndividualVariableParams() throws Exception {
+        String q = "foo";
+        String from = "bar";
+
+        this.mvc.perform(get(String.format("/individual-example/%s/%s", q, from)))
+                .andExpect((status().isOk()));
+
+    }
+
+    @Test
+    public void testTaskVariablesEndPoint() throws Exception {
+        int taskId = 1;
+        int commentId = 23;
+
+        this.mvc.perform(get(String.format("/test/tasks/%d/comments/%d", taskId, commentId)))
+                .andExpect(status().isOk());
+    }
 }
