@@ -1,10 +1,7 @@
 package com.example;
 
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -28,10 +25,10 @@ public class HelloController {
         return String.format("sortBy is %s and sortDirection is %s", sortBy, sortDirection);
     }
 
-    @GetMapping("/map-example")
-    public String getMapParams(@RequestParam Map querystring) {
-        return querystring.toString();
-    }
+//    @GetMapping("/map-example")
+//    public String getMapParams(@RequestParam Map querystring) {
+//        return querystring.toString();
+//    }
 
     @GetMapping("/hillary")
     public String getMapParams(@RequestParam MultiValueMap<String, String> querystring) {
@@ -86,6 +83,18 @@ public class HelloController {
         return pathVariables.toString(); // {taskId=46, commentId=35}
     }
 
+    @PostMapping("/string-examaple")
+    public String getRawString(@RequestBody String rawBody) {
+        return rawBody;
+    }
+
+    @PostMapping(path = "/people")
+    public String showFormData(@RequestBody Map<String, String> body) {
+        return body.toString();  // {first_name=Dwayne, last_name=Johnson}
+    }
+
+
+
 //    public class TaskIds {
 //        private int taskId;
 //        private int commentId;
@@ -112,4 +121,9 @@ public class HelloController {
 //            return String.format("taskId is %d; commentId is %s", ids.getTaskId(), ids.getCommentId());
 //        }
 //    }
+
+//    MockHttpServletRequestBuilder request1 = post("/comments")
+//            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+//            .param("content", "Firsties!")
+//            .param("author", "Dwayne");
 }

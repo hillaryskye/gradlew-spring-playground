@@ -4,12 +4,18 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.Random;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
@@ -68,5 +74,19 @@ public class HelloControllerTest {
 
         this.mvc.perform(get(String.format("/test/tasks/%d/comments/%d", taskId, commentId)))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testCreateComment() throws Exception {
+        String content = String.valueOf(new Random().nextInt());
+
+        MockHttpServletRequestBuilder request1 = post("/comments")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("content", content)
+                .param("author", "Dwayne");
+
+        this.mvc.perform(request1)
+                .andExpect(status().isOk())
+                .andExpect(content().string(String.format("Dwayne said %s", content)));
     }
 }
