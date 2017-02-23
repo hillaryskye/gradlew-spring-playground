@@ -63,7 +63,7 @@ public class JSONRequestControllerTest {
     public void testCreateJSONObjectFromFileFixture() throws Exception {
         String json = getJSON("/data.json");
 
-        MockHttpServletRequestBuilder request = post("/json/fixture-example")
+        MockHttpServletRequestBuilder request = post("/json/object-example")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json);
 
