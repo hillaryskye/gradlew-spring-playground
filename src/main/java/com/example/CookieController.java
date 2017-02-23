@@ -1,9 +1,6 @@
 package com.example;
 
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -23,5 +20,10 @@ public class CookieController {
     public HttpServletResponse getCookie(HttpServletResponse response) {
         response.addCookie(new Cookie("foo", "bar"));
         return response;
+    }
+
+    @GetMapping("/header")
+    public String getHeader(@RequestHeader String host) {
+        return host;
     }
 }
