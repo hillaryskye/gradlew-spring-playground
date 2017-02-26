@@ -1,7 +1,5 @@
 package com.example;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,31 +37,31 @@ public class JSONRequestControllerTest {
 
     }
 
-    @Test
-    public void testCreateJSONObjectSerializedWithGSON() throws Exception {
-
-        JSONRequestController.Car[] per1_cars = new JSONRequestController.Car[2];
-        per1_cars[0] = new JSONRequestController.Car("Toyota", "Tundra");
-        per1_cars[1] = new JSONRequestController.Car("Honda", "Accord");
-        JSONRequestController.Person person = new JSONRequestController.Person("Joey", per1_cars);
-        // Create the gson builder
-        Gson gson = new GsonBuilder().create();
-
-        MockHttpServletRequestBuilder request = post("/json/object-example")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(gson.toJson(person));
-
-        this.mvc.perform(request)
-                .andExpect(status().isOk())
-                .andExpect(content().string("{\"name\":\"Joey\",\"cars\":[{\"make\":\"Toyota\",\"model\":\"Tundra\"},{\"make\":\"Honda\",\"model\":\"Accord\"}]}"));
-
-    }
+//    @Test
+//    public void testCreateJSONObjectSerializedWithGSON() throws Exception {
+//
+//        JSONRequestController.Car[] per1_cars = new JSONRequestController.Car[2];
+//        per1_cars[0] = new JSONRequestController.Car("Toyota", "Tundra");
+//        per1_cars[1] = new JSONRequestController.Car("Honda", "Accord");
+//        JSONRequestController.Person person = new JSONRequestController.Person("Joey", per1_cars);
+//        // Create the gson builder
+//        Gson gson = new GsonBuilder().create();
+//
+//        MockHttpServletRequestBuilder request = post("/json/object-example")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(gson.toJson(person));
+//
+//        this.mvc.perform(request)
+//                .andExpect(status().isOk())
+//                .andExpect(content().string("{\"name\":\"Joey\",\"cars\":[{\"make\":\"Toyota\",\"model\":\"Tundra\"},{\"make\":\"Honda\",\"model\":\"Accord\"}]}"));
+//
+//    }
 
     @Test
     public void testCreateJSONObjectFromFileFixture() throws Exception {
         String json = getJSON("/data.json");
 
-        MockHttpServletRequestBuilder request = post("/json/object-example")
+        MockHttpServletRequestBuilder request = post("/json/object-example-json")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json);
 

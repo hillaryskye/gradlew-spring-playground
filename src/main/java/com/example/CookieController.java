@@ -23,7 +23,7 @@ public class CookieController {
     }
 
     @GetMapping("/header")
-    public String getHeader(@RequestHeader String host) {
-        return host;
+    public HttpServletResponse getHeader(@RequestHeader(value="User-Agent", defaultValue="foo") String userAgent, HttpServletResponse response) {
+        return response;
     }
 }

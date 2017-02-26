@@ -23,7 +23,7 @@ public class JSONRequestController {
         return jsonString;
     }
 
-    @PostMapping("/object-example")
+    @PostMapping("/object-example-json")
     public String postJSONObjString(@RequestBody String person) {
 //        Gson builder = new GsonBuilder().create();
 //        String jsonString = builder.toJson(person);
